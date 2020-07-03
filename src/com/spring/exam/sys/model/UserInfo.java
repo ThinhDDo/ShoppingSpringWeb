@@ -1,6 +1,6 @@
 package com.spring.exam.sys.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,18 +10,19 @@ public class UserInfo {
 	private String phone;
 	private String address;
 	
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	
 	private String username;
 	private String password;
+	private String avata;
 
 	public UserInfo() {
 		super();
 	}
 
 	public UserInfo(String fullname, String email, String phone, String address, Date birthday, String username,
-			String password) {
+			String password, String avata) {
 		super();
 		this.fullname = fullname;
 		this.email = email;
@@ -30,6 +31,7 @@ public class UserInfo {
 		this.birthday = birthday;
 		this.username = username;
 		this.password = password;
+		this.avata = avata;
 	}
 
 	public String getFullname() {
@@ -87,11 +89,24 @@ public class UserInfo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+	
+	public String getAvata() {
+		return avata;
+	}
+
+	public void setAvata(String avata) {
+		this.avata = avata;
+	}
 
 	@Override
 	public String toString() {
 		return "UserInfo [fullname=" + fullname + ", email=" + email + ", phone=" + phone + ", address=" + address
-				+ ", birthday=" + birthday + ", username=" + username + ", password=" + password + "]";
+				+ ", birthday=" + birthday + ", username=" + username + ", password=" + password + ", avata=" + avata
+				+ "]";
 	}
+
+	
 
 }

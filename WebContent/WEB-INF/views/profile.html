@@ -5,21 +5,26 @@
 <title>Profile Information</title>
 <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/login-style.css}">
+<link rel="stylesheet" th:href="@{/css/profile.css}">
 </head>
 <body>
 	<!-- USER INFO -->
 	<div class="container-fluid p-5">
-	
-		<h1 class="text-center">PROFILE</h1>
 
 		<div class="container mt-1 form-section">
 			
+			<h1 class="text-center">PROFILE</h1>
+
+			<div class="avata d-flex justify-content-center m-4">
+				<form method="post" action="#" th:action="@{/save-avata}" enctype="multipart/form-data" th:object="${profile}">
+					<input th:field="*{username}" type="text" hidden="true">
+					<input id="avata-input" name="file" onchange="getURL()" type="file" hidden="true">
+					<img onclick="showDialog()" id="avata-img" class="rounded-circle" th:src="@{/img/{path}(path=${profile.avata})}">
+					<button type="submit" id="avata-submit" hidden="true"></button>
+				</form>
+			</div>
+
 			<form method="post" action="#" th:action="@{/save-profile}" th:object="${profile}">
-				
-				<div class="avata d-flex justify-content-center m-4">
-					<img class="rounded-circle" th:src="@{/img/avatar.png}">
-				</div>
-				
 				
 					<div class="form-row">
 						<div class="form-group col-md-4">
@@ -76,5 +81,18 @@
 		</div>
 
 	</div>
+
+
+	<!-- JAVASCRIPT -->
+	<script>
+		function showDialog() {
+			document.getElementById('avata-input').click();
+		}
+
+		function getURL() {	
+			console.log("SUBMITED");
+			document.getElementById('avata-submit').click();
+		}
+	</script>
 </body>
 </html>

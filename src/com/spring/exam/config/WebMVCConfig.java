@@ -1,10 +1,19 @@
 package com.spring.exam.config;
 
+import java.time.format.DateTimeFormatter;
+
+import javax.servlet.MultipartConfigElement;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -43,6 +52,19 @@ public class WebMVCConfig implements WebMvcConfigurer{
 	}
 	
 	@Bean
+    public FormattingConversionService conversionService() {
+        DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
+        
+        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+        registrar.setDateFormatter(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        registrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        registrar.registerFormatters(conversionService);
+ 
+        // other desired formatters
+        return conversionService;
+    }
+	
+	@Bean
 	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine  = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
@@ -56,4 +78,16 @@ public class WebMVCConfig implements WebMvcConfigurer{
 		viewResolver.setTemplateEngine(templateEngine());
 		return viewResolver;
 	}
+	
+//	@Bean
+//    public MultipartConfigElement multipartConfigElement() {
+//        return new MultipartConfigElement("");
+//    }
+//
+    @Bean
+    public MultipartResolver multipartResolver() {
+        org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(1000000);
+        return multipartResolver;
+    }
 }

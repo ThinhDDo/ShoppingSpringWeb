@@ -6,7 +6,7 @@
 	
 	
 	<select id="selectUserByName" resultType="User">
-		SELECT fullname, email, password, username, phone, address, birthday
+		SELECT fullname, email, password, username, phone, address, birthday, avata
 		FROM USER
 		WHERE username like #{username}
 	</select>
@@ -22,7 +22,8 @@
 		email = #{email}, 
 		phone = #{phone},
 		address = #{address},
-		birthday = #{birthday} 
+		birthday = #{birthday},
+		avata = #{avata} 
 		WHERE username like #{username}
 	</update>
 	
